@@ -32,17 +32,15 @@ clustastic(main);
 
 function main() {
     var express = require('express');
-    var cluster = require('cluster');
     var app = express();
 
     app.get('/', function (req, res) {
-        res.send('Response from worker ' + cluster.worker.id);
+        res.send('Response from worker ' + clustastic.workerId());
     });
 
     app.listen(3000);
 }
 ```
-
 
 ### Options
 
@@ -59,3 +57,28 @@ If you will provide an invalid value, an `Error` will be thrown with the message
 By default, clustastic will use `console.log` for logging. You may pass your own function to override this, by setting the `logging` property in the options object.
 
 Any value that is not a function, will disable the logging.
+
+### Getting worker ID
+
+You can get the ID of the worker within your code using the `workerId` function available on the `clustastic` module function.
+
+```javascript
+var clustastic = require('clustastic');
+
+clustastic(function() {
+	console.log('Response from worker ' + clustastic.workerId());
+});
+```
+
+Output with 4 cores CPU:
+
+```sh
+Response from worker 1
+Worker 1 running
+Response from worker 2
+Worker 2 running
+Response from worker 3
+Worker 3 running
+Response from worker 4
+Worker 4 running
+```

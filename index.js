@@ -1,7 +1,7 @@
 var cluster = require('cluster');
 var os = require('os');
 
-module.exports = function clustastic(main, options) {
+function clustastic(main, options) {
 
 	options = Object.assign({
 		logging: console.log,
@@ -35,3 +35,9 @@ module.exports = function clustastic(main, options) {
 	};
 
 };
+
+clustastic.workerId = function getWorkerId() {
+	return cluster.isMaster ? null : cluster.worker.id;
+};
+
+module.exports = clustastic;
