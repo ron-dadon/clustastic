@@ -1,6 +1,6 @@
 # Clustastic
 
-A simple wrapper module for basic nodejs cluster application.
+[Clustastic](https://ron-dadon.github.io/clustastic) is a simple wrapper module for basic nodejs cluster application.
 This module enables you to run your "main" function code within a cluster of workers.
 
 ### Installation
